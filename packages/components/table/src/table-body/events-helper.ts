@@ -137,15 +137,15 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
      */
     const { width: rangeWidth, height: rangeHeight } =
       range.getBoundingClientRect()
-    const { width: cellChildWidth, height: cellChildHeight } =
-      cellChild.getBoundingClientRect()
+   const { offsetWidth: cellChildWidth, offsetHeight: cellChildHeight } =
+    cellChild
 
     const { top, left, right, bottom } = getPadding(cellChild)
     const horizontalPadding = left + right
     const verticalPadding = top + bottom
     if (
-      isGreaterThan(rangeWidth + horizontalPadding, cellChildWidth) ||
-      isGreaterThan(rangeHeight + verticalPadding, cellChildHeight) ||
+      isGreaterThan(rangeWidth/window.devicePixelRatio + horizontalPadding, cellChildWidth) ||
+      isGreaterThan(rangeHeight/window.devicePixelRatio + verticalPadding, cellChildHeight) ||
       // When using a high-resolution screen, it is possible that a returns cellChild.scrollWidth value of 1921 and
       // cellChildWidth returns a value of 1920.994140625. #16856 #16673
       isGreaterThan(cellChild.scrollWidth, cellChildWidth)
